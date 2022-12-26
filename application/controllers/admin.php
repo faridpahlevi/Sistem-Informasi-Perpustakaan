@@ -118,3 +118,26 @@
             $this->load->view('admin/v_buku',$data);
             $this->load->view('admin/v_footer');
         }
+		function peminjaman_laporan(){
+            if(isset($_GET['tanggal_mulai']) && isset($_GET['tanggal_sampai'])){
+                $mulai = $this->input->get('tanggal_mulai');
+                $sampai = $this->input->get('tanggal_sampai');
+                $data['peminjaman'] = $this->db->query("select * from peminjaman,buku,anggota where peminjaman.peminjaman_buku=buku.id and peminjaman.peminjaman_anggota=anggota.id and date(peminjaman_tanggal_mulai) >= '$mulai' and date(peminjaman_tanggal_mulai) <= '$sampai' order by peminjaman_id desc")->result();
+            }else{
+                $data['peminjaman'] = $this->db->query("select * from peminjaman,buku,anggota where peminjaman.peminjaman_buku=buku.id and peminjaman.peminjaman_anggota=anggota.id order by peminjaman_id desc")->result();
+            }
+            $this->load->view('admin/v_header');
+            $this->load->view('admin/v_peminjaman_laporan',$data);
+            $this->load->view('admin/v_footer');
+        }
+        function peminjaman_cetak(){
+            if(isset($_GET['tanggal_mulai']) && isset($_GET['tanggal_sampai'])){
+                $mulai = $this->input->get('tanggal_mulai');
+                $sampai = $this->input->get('tanggal_sampai');
+                $data['peminjaman'] = $this->db->query("select * from peminjaman,buku,anggota where peminjaman.peminjaman_buku=buku.id and peminjaman.peminjaman_anggota=anggota.id and date(peminjaman_tanggal_mulai) >= '$mulai' and date(peminjaman_tanggal_mulai) <= '$sampai' order by peminjaman_id desc")->result(); 
+                $this->load->view('admin/v_peminjaman_cetak',$data);
+            }else{
+                redirect(base_url().'admin/peminjaman');
+            }
+        }
+    }
