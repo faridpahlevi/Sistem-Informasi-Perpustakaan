@@ -56,3 +56,7 @@
 
                 <a  class="btn btn-outline-light ml-1 nav-link" href="<?php echo base_url().'admin/logout'; ?>"><i class="fa fa-power-off"></i> KELUAR</a>
             </div>
+	</div>
+    </nav>
+
+<br/> <br/>
